@@ -1,0 +1,22 @@
+<form [formGroup]="form" (ngSubmit)="guardar()">
+<div>
+<label>Nombre</label>
+<input formControlName="nombre" />
+@if (form.get('nombre')?.touched && form.get('nombre')?.invalid) {
+<small>El nombre es obligatorio</small>
+}
+</div>
+<br>
+<button type="submit" [disabled]="form.invalid">
+@if (store.selected() !== null ) {
+Actualizar
+} @else {
+Guardar
+}
+</button>
+@if (store.selected() !== null) {
+<button type="button" (click)="cancelar()">
+Cancelar
+</button>
+}
+</form>

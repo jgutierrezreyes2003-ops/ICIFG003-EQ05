@@ -1,0 +1,13 @@
+<h2>Personas</h2>
+@if (store.loading()) {
+<div>Cargando...</div>
+}
+<ul>
+@for (p of store.personas(); track p.id) {
+<li>
+{{ p.nombre }}
+<button (click)="editar(p)">Editar</button>
+<button (click)="eliminar(p.id)">Eliminar</button>
+</li>
+}
+</ul>
