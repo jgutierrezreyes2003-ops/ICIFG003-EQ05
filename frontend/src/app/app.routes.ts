@@ -1,14 +1,14 @@
 import { Routes } from '@angular/router';
 export const routes: Routes = [
 {
-path: 'personas',
+path: 'usuarios',
 loadChildren: () =>
-import('./features/personas/persona.routes')
-.then(m => m.PERSONA_ROUTES)
+import('./features/usuarios/usuario.routes')
+.then(m => m.USUARIO_ROUTES)
 },
 {
 path: '',
-redirectTo: 'personas',
+redirectTo: 'usuarios',
 pathMatch: 'full'
 }
 ];

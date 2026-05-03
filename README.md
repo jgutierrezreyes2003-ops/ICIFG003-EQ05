@@ -3,7 +3,6 @@
 Extension Pack for Java 
 Spring Boot Extension Pack 
 Angular Language Service
-Lombok Annotations Support(si se utiliza)
 
 -Programas en Windows
 

@@ -1,0 +1,26 @@
+<div class="login-wrapper">
+  <div class="login-card">
+    <div class="brand-header">
+      <h2>Acceso al Sistema</h2>
+      <p>Ingresa tus credenciales para continuar</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="guardar()">
+      
+      <div class="input-group">
+        <label>Nombre de Usuario</label>
+        <input type="text" formControlName="usuario" placeholder="ej: admin" autocomplete="off" />
+      </div>
+
+      <div class="input-group">
+        <label>Contraseña</label>
+        <input type="password" formControlName="contrasena" placeholder="••••••••" />
+      </div>
+
+      <button type="submit" class="btn-submit" [disabled]="form.invalid">
+        Ingresar
+      </button>
+
+    </form>
+  </div>
+</div>
