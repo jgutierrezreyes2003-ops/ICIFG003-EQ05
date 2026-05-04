@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { UsuarioListComponent } from '../components/usuario-list.component';
-import { UsuarioFormComponent } from '../components/usuario-form.component';
+import { UsuarioListComponent } from '../components/usuario/usuario-list.component';
+import { UsuarioFormComponent } from '../components/usuario/usuario-form.component';
 @Component({
     selector: 'app-usuario-page',
     standalone: true,

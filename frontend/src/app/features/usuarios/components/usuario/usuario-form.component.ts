@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { UsuarioService } from '../services/usuario.service';
+import { Router } from '@angular/router'; 
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-usuario-form',
@@ -12,6 +13,7 @@ import { UsuarioService } from '../services/usuario.service';
 export class UsuarioFormComponent {
   private fb = inject(FormBuilder);
   private usuarioService = inject(UsuarioService);
+  private router = inject(Router);
 
   form = this.fb.group({
     usuario: ['', Validators.required],
@@ -26,7 +28,8 @@ export class UsuarioFormComponent {
     this.usuarioService.login(credenciales as any).subscribe({
       next: (respuesta) => {
         console.log("¡Login Exitoso!", respuesta);
-        alert("¡Bienvenido al sistema!");
+        
+        this.router.navigate(['/inicio']); 
       },
       error: (err) => {
         console.error("Error en el login", err);
