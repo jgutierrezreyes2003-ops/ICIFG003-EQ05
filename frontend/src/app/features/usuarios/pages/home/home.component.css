@@ -1,0 +1,11 @@
+.hero-section {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/Foto_ColegioMP.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 65vh;
+  }
+  
+  .shadow-text {
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+  }
