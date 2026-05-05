@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UsuarioStore } from '../services/usuario.store';
+import { UsuarioStore } from '../../services/usuario.store';
 
 @Component({
     selector: 'app-usuario-list',

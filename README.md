@@ -9,3 +9,10 @@ Angular Language Service
 Java 17 (JDK)
 Node.js (Versión LTS)
 PostgreSQL
+
+-Inicio de aplicacion
+
+Run BackendApplication
+Crear db05
+npm install en frontend
+ng serve
