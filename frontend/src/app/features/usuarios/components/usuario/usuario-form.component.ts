@@ -1,40 +1,26 @@
 import { Component, inject } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router'; 
-import { UsuarioService } from '../../services/usuario.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule, Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-usuario-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, RouterModule], 
   templateUrl: './usuario-form.component.html',
   styleUrl: './usuario-form.component.css'
 })
 export class UsuarioFormComponent {
-  private fb = inject(FormBuilder);
-  private usuarioService = inject(UsuarioService);
+  usuario = '';
+  contrasena = '';
+  
   private router = inject(Router);
 
-  form = this.fb.group({
-    usuario: ['', Validators.required],
-    contrasena: ['', Validators.required]
-  });
-
-  guardar() {
-    if (this.form.invalid) return;
-    
-    const credenciales = this.form.value;
-    
-    this.usuarioService.login(credenciales as any).subscribe({
-      next: (respuesta) => {
-        console.log("¡Login Exitoso!", respuesta);
-        
-        this.router.navigate(['/inicio']); 
-      },
-      error: (err) => {
-        console.error("Error en el login", err);
-        alert("Usuario o contraseña incorrectos");
-      }
-    });
+  login() {
+    if (this.usuario === 'admin' && this.contrasena === '1234') {
+      this.router.navigate(['/inicio']);
+    } else {
+      alert('Credenciales incorrectas');
+    }
   }
 }

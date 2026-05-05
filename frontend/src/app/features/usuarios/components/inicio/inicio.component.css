@@ -1,138 +1,57 @@
-.dashboard-layout {
-    min-height: 100vh;
-    background-color: #121212;
-    color: #ffffff;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: -8px; 
-  }
-  
-  .navbar {
-    background-color: #1a1a1a;
-    padding: 15px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 3px solid #d32f2f; 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-  }
-  
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  
-  .logo-icon {
-    font-size: 32px;
-  }
-  
-  .brand-text h2 {
-    margin: 0;
-    font-size: 20px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-  }
-  
-  .badge-sede {
-    background-color: #d32f2f;
-    color: white;
-    padding: 3px 8px;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  
-  .btn-logout {
-    background-color: transparent;
-    color: #aaaaaa;
-    border: 1px solid #444;
-    padding: 8px 20px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s;
-  }
-  
-  .btn-logout:hover {
-    background-color: #d32f2f;
-    color: white;
-    border-color: #d32f2f;
-  }
-  
-  .main-content {
-    padding: 50px 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .welcome-section {
-    margin-bottom: 40px;
-  }
-  
-  .welcome-section h1 {
-    font-size: 34px;
-    margin: 0 0 10px 0;
-  }
-  
-  .welcome-section p {
-    color: #888888;
-    font-size: 16px;
-    margin: 0;
-  }
-  
-  .modules-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-  }
-  
-  .module-card {
-    background-color: #1e1e1e;
-    padding: 30px;
-    border-radius: 12px;
-    border-top: 4px solid transparent;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  }
-  
-  .module-card:hover {
-    transform: translateY(-8px);
-    border-top-color: #d32f2f;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.5);
-  }
-  
-  .card-icon {
-    font-size: 38px;
-    margin-bottom: 15px;
-  }
-  
-  .module-card h3 {
-    margin: 0 0 15px 0;
-    font-size: 22px;
-  }
-  
-  .module-card p {
-    color: #a0a0a0;
-    font-size: 14px;
-    line-height: 1.6;
-    margin-bottom: 25px;
-    min-height: 45px;
-  }
-  
-  .btn-module {
-    width: 100%;
-    background-color: #2a2a2a;
-    color: #ffffff;
-    border: none;
-    padding: 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.3s;
-  }
-  
-  .module-card:hover .btn-module {
-    background-color: #d32f2f;
-  }
+.text-colegio-blue { color: #003f7a !important; }
+.bg-colegio-blue { background-color: #003f7a !important; }
+.bg-colegio-yellow { background-color: #ffca28 !important; }
+
+.bg-colegio-blue-light { background-color: rgba(0, 63, 122, 0.08); }
+.bg-colegio-yellow-light { background-color: rgba(255, 202, 40, 0.15); }
+
+.module-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-top: 5px solid transparent !important;
+}
+
+.module-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08) !important;
+  border-top-color: #003f7a !important;
+}
+
+.icon-dashboard {
+  width: 65px;
+  height: 65px;
+  font-size: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.module-card:hover .icon-dashboard {
+  transform: scale(1.1);
+}
+
+.btn-colegio-blue {
+  background-color: #003f7a;
+  color: #ffffff;
+  border: none;
+  transition: all 0.3s ease;
+}
+.btn-colegio-blue:hover {
+  background-color: #00254a;
+  color: #ffca28;
+  transform: translateY(-2px);
+}
+
+.btn-colegio-yellow {
+  background-color: #ffca28;
+  color: #111111;
+  border: none;
+  transition: all 0.3s ease;
+}
+.btn-colegio-yellow:hover {
+  background-color: #e6b117;
+  transform: translateY(-2px);
+}
+
+.transition-all:hover {
+  background-color: #ffca28;
+  border-color: #ffca28;
+  color: #111;
+}

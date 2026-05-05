@@ -1,11 +1,42 @@
+.text-colegio-blue { color: #003f7a !important; }
+.text-colegio-yellow { color: #ffca28 !important; }
+.bg-colegio-blue { background-color: #003f7a !important; }
+.bg-colegio-yellow { background-color: #ffca28 !important; }
+
+.btn-colegio-blue {
+  background-color: #003f7a;
+  color: #ffffff;
+  border: none;
+  transition: all 0.3s ease;
+}
+.btn-colegio-blue:hover {
+  background-color: #00254a;
+  color: #ffca28; 
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 63, 122, 0.3) !important;
+}
+
 .hero-section {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/Foto_ColegioMP.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 65vh;
-  }
-  
-  .shadow-text {
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
-  }
+  background-image: linear-gradient(rgba(0, 30, 60, 0.75), rgba(0, 45, 90, 0.85)), url('/Foto_ColegioMP.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 70vh;
+  border-bottom: 8px solid #ffca28; 
+}
+
+.shadow-text {
+  text-shadow: 2px 2px 12px rgba(0,0,0,0.8);
+}
+
+.border-colegio {
+  border: 6px solid #ffffff;
+  box-shadow: -15px 15px 0px -2px #ffca28, -15px 15px 0px 4px #ffffff, 0 20px 40px rgba(0,0,0,0.15); 
+}
+
+.icon-box {
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  font-size: 1.4rem;
+}
