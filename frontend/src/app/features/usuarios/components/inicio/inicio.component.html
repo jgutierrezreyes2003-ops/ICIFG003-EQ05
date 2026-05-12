@@ -1,15 +1,16 @@
 <div class="bg-light min-vh-100">
-  
+
   <nav class="navbar navbar-expand-lg bg-colegio-blue shadow py-3 px-4 border-bottom border-warning border-3">
     <div class="container-fluid d-flex justify-content-between align-items-center">
-      
+
       <div class="d-flex align-items-center gap-3">
-        <div class="bg-white rounded-circle p-1 d-flex align-items-center justify-content-center shadow-sm" style="width: 50px; height: 50px;">
-           <img src="/Logo.png" alt="Logo" class="img-fluid" style="max-height: 35px; object-fit: contain;">
+        <div class="bg-white rounded-circle p-1 d-flex align-items-center justify-content-center shadow-sm"
+          style="width: 50px; height: 50px;">
+          <img src="/Logo.png" alt="Logo" class="img-fluid" style="max-height: 35px; object-fit: contain;">
         </div>
         <h4 class="mb-0 text-white fw-bold d-none d-sm-block">Colegio Marcela Paz</h4>
       </div>
-      
+
       <div class="d-flex align-items-center gap-4">
         <span class="text-white d-none d-md-block opacity-75"><small>👤 Administrador</small></span>
         <button class="btn btn-outline-light btn-sm fw-bold rounded-pill px-4 py-2 transition-all" (click)="salir()">
@@ -21,8 +22,9 @@
   </nav>
 
   <main class="container py-5 mt-3">
-    
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-5 border-bottom border-secondary-subtle pb-4">
+
+    <div
+      class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-5 border-bottom border-secondary-subtle pb-4">
       <div>
         <h2 class="fw-bold text-colegio-blue mb-2 display-6">Panel de Control</h2>
         <p class="text-secondary mb-0 fs-5">Gestiona los módulos académicos y protocolos del establecimiento.</p>
@@ -32,17 +34,19 @@
     </div>
 
     <div class="row g-4">
-      
+
       <div class="col-12 col-md-4">
         <div class="card h-100 border-0 shadow-sm module-card rounded-4">
           <div class="card-body p-4 p-lg-5 d-flex flex-column">
             <div class="d-flex justify-content-between align-items-start mb-4">
-              <div class="icon-dashboard bg-colegio-blue-light text-colegio-blue rounded-4 d-flex align-items-center justify-content-center">
+              <div
+                class="icon-dashboard bg-colegio-blue-light text-colegio-blue rounded-4 d-flex align-items-center justify-content-center">
                 📱
               </div>
             </div>
             <h4 class="fw-bold text-dark mb-3">Alumnos</h4>
-            <p class="text-secondary mb-4 flex-grow-1">Registro y administración del listado completo de estudiantes.</p>
+            <p class="text-secondary mb-4 flex-grow-1">Registro y administración del listado completo de estudiantes.
+            </p>
             <button class="btn btn-colegio-blue w-100 fw-bold py-2 rounded-3 shadow-sm">Ingresar al Módulo</button>
           </div>
         </div>
@@ -52,13 +56,16 @@
         <div class="card h-100 border-0 shadow-sm module-card rounded-4">
           <div class="card-body p-4 p-lg-5 d-flex flex-column">
             <div class="d-flex justify-content-between align-items-start mb-4">
-              <div class="icon-dashboard bg-colegio-blue-light text-colegio-blue rounded-4 d-flex align-items-center justify-content-center">
+              <div
+                class="icon-dashboard bg-colegio-blue-light text-colegio-blue rounded-4 d-flex align-items-center justify-content-center">
                 📝
               </div>
             </div>
             <h4 class="fw-bold text-dark mb-3">Causas</h4>
-            <p class="text-secondary mb-4 flex-grow-1">Configuración de las posibles causas que engatillan la regulación.</p>
-            <button class="btn btn-colegio-blue w-100 fw-bold py-2 rounded-3 shadow-sm">Ingresar al Módulo</button>
+            <p class="text-secondary mb-4 flex-grow-1">Configuración de las posibles causas que engatillan la
+              regulación.</p>
+            <button routerLink="/causas" class="btn btn-colegio-blue w-100 fw-bold py-2 rounded-3 shadow-sm">Ingresar al
+              Módulo</button>
           </div>
         </div>
       </div>
@@ -67,13 +74,16 @@
         <div class="card h-100 border-0 shadow-sm module-card rounded-4">
           <div class="card-body p-4 p-lg-5 d-flex flex-column">
             <div class="d-flex justify-content-between align-items-start mb-4">
-              <div class="icon-dashboard bg-colegio-yellow-light text-warning-emphasis rounded-4 d-flex align-items-center justify-content-center">
+              <div
+                class="icon-dashboard bg-colegio-yellow-light text-warning-emphasis rounded-4 d-flex align-items-center justify-content-center">
                 ✉️
               </div>
             </div>
             <h4 class="fw-bold text-dark mb-3">Protocolo</h4>
-            <p class="text-secondary mb-4 flex-grow-1">Gestión integral de protocolo de desregulación emocional conductual.</p>
-            <button class="btn btn-colegio-yellow text-dark w-100 fw-bold py-2 rounded-3 shadow-sm">Ingresar al Módulo</button>
+            <p class="text-secondary mb-4 flex-grow-1">Gestión integral de protocolo de desregulación emocional
+              conductual.</p>
+            <button class="btn btn-colegio-yellow text-dark w-100 fw-bold py-2 rounded-3 shadow-sm">Ingresar al
+              Módulo</button>
           </div>
         </div>
       </div>
