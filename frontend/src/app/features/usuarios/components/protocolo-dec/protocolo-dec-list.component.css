@@ -1,0 +1,19 @@
+.text-colegio-blue {
+  color: #003f7d;
+}
+
+.search-box {
+  min-width: 280px;
+}
+
+thead th {
+  background: #f8fafc;
+  color: #003f7d;
+  font-weight: 700;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.descripcion-cell {
+  max-width: 320px;
+  white-space: normal;
+}

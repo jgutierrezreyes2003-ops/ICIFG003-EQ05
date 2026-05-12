@@ -1,0 +1,65 @@
+<div class="card border-0 shadow-sm rounded-4 mb-4">
+  <div class="card-body p-4">
+    <div class="d-flex align-items-center gap-3 mb-4">
+      <div class="icon-box bg-colegio-yellow-light text-warning-emphasis rounded-4 d-flex align-items-center justify-content-center">
+        ✉️
+      </div>
+      <div>
+        <h4 class="fw-bold text-colegio-blue mb-1">
+          {{ id ? 'Editar Protocolo DEC' : 'Registrar Protocolo DEC' }}
+        </h4>
+        <p class="text-secondary mb-0">Completa los datos del protocolo y selecciona los alumnos involucrados.</p>
+      </div>
+    </div>
+
+    <form (ngSubmit)="enviarFormulario()">
+      <div class="row g-3">
+        <div class="col-12 col-md-4">
+          <label class="form-label fw-semibold">Fecha</label>
+          <input type="date" class="form-control rounded-3" [(ngModel)]="fecha" name="fecha" required>
+        </div>
+
+        <div class="col-12 col-md-8">
+          <label class="form-label fw-semibold">Causa</label>
+          <select class="form-select rounded-3" [(ngModel)]="causaId" name="causaId" required>
+            <option [ngValue]="null">Seleccionar causa</option>
+            <option *ngFor="let causa of causas" [ngValue]="causa.id">
+              {{ causa.nombreCausa }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-12">
+          <label class="form-label fw-semibold">Descripción</label>
+          <textarea class="form-control rounded-3" rows="3" [(ngModel)]="descripcion" name="descripcion" placeholder="Describe brevemente la situación observada" required></textarea>
+        </div>
+
+        <div class="col-12">
+          <label class="form-label fw-semibold">Alumnos involucrados</label>
+          <div class="alumnos-box rounded-4 p-3">
+            <div class="row g-2">
+              <div class="col-12 col-md-6 col-lg-4" *ngFor="let alumno of alumnos">
+                <label class="alumno-check rounded-3 p-2 d-flex align-items-center gap-2">
+                  <input type="checkbox" [checked]="estaSeleccionado(alumno.id)" (change)="cambiarAlumno(alumno.id, $event)">
+                  <span>
+                    <strong>{{ alumno.nombre }}</strong><br>
+                    <small class="text-secondary">{{ alumno.curso }}</small>
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex gap-2 justify-content-end mt-4">
+        <button type="button" class="btn btn-outline-secondary rounded-3 px-4" (click)="cancelarEdicion()" *ngIf="id">
+          Cancelar
+        </button>
+        <button type="submit" class="btn btn-colegio-yellow text-dark fw-bold rounded-3 px-4 shadow-sm">
+          {{ id ? 'Actualizar' : 'Guardar' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

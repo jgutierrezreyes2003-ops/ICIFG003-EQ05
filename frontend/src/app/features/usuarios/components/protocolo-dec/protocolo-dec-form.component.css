@@ -1,0 +1,41 @@
+.text-colegio-blue {
+  color: #003f7d;
+}
+
+.bg-colegio-yellow-light {
+  background-color: #fff3cd;
+}
+
+.btn-colegio-yellow {
+  background-color: #ffc928;
+  border: none;
+}
+
+.btn-colegio-yellow:hover {
+  filter: brightness(0.95);
+}
+
+.icon-box {
+  width: 54px;
+  height: 54px;
+  font-size: 1.5rem;
+}
+
+.alumnos-box {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.alumno-check {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.alumno-check:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 63, 125, 0.08);
+}

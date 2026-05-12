@@ -12,5 +12,10 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./features/usuarios/alumno.routes').then(m => m.ALUMNO_ROUTES)
   },
+  {
+    path: 'protocolo-dec',
+    loadChildren: () =>
+      import('./features/usuarios/protocolo-dec.routes').then(m => m.PROTOCOLO_DEC_ROUTES)
+  },
   { path: '**', redirectTo: '' }
 ];

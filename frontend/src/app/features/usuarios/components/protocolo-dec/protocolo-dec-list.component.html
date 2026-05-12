@@ -1,0 +1,60 @@
+<div class="card border-0 shadow-sm rounded-4">
+  <div class="card-body p-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between gap-3 align-items-md-center mb-4">
+      <div>
+        <h4 class="fw-bold text-colegio-blue mb-1">Protocolos DEC registrados</h4>
+        <p class="text-secondary mb-0">Busca protocolos por nombre o curso del alumno involucrado.</p>
+      </div>
+
+      <div class="search-box">
+        <input
+          type="text"
+          class="form-control rounded-3"
+          placeholder="Buscar por alumno o curso..."
+          [(ngModel)]="busquedaAlumno">
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table align-middle table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>Causa</th>
+            <th>Alumnos</th>
+            <th>Descripción</th>
+            <th class="text-end">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let protocolo of protocolosFiltrados">
+            <td class="fw-semibold">{{ protocolo.id }}</td>
+            <td>{{ protocolo.fecha }}</td>
+            <td>
+              <span class="badge rounded-pill bg-warning text-dark px-3 py-2">
+                {{ protocolo.causa.nombreCausa }}
+              </span>
+            </td>
+            <td>{{ nombresAlumnos(protocolo) }}</td>
+            <td class="descripcion-cell">{{ protocolo.descripcion }}</td>
+            <td class="text-end">
+              <button class="btn btn-sm btn-outline-primary rounded-3 me-2" (click)="editar.emit(protocolo)">
+                Editar
+              </button>
+              <button class="btn btn-sm btn-outline-danger rounded-3" (click)="confirmarEliminar(protocolo.id)">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+
+          <tr *ngIf="protocolosFiltrados.length === 0">
+            <td colspan="6" class="text-center text-secondary py-4">
+              No se encontraron protocolos para la búsqueda ingresada.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

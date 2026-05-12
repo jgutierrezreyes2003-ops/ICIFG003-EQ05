@@ -13,7 +13,9 @@ export class InicioComponent {
   irAlumnos() {
     this.router.navigate(['/alumnos']);
   }
-  
+  irProtocoloDEC() {
+    this.router.navigate(['/protocolo-dec']);
+  }
   salir() {
     this.router.navigate(['/']); 
   }
