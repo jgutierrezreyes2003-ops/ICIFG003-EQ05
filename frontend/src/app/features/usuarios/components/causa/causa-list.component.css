@@ -1,0 +1,17 @@
+.text-colegio-blue { color: #003f7a !important; }
+.bg-colegio-blue-light { background-color: rgba(0, 63, 122, 0.08); }
+.bg-colegio-yellow { background-color: #ffca28 !important; }
+
+.table-card {
+  border-top: 5px solid #ffca28 !important;
+}
+
+thead th {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 2px solid rgba(0, 63, 122, 0.12);
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(0, 63, 122, 0.04);
+}

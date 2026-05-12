@@ -1,0 +1,32 @@
+.text-colegio-blue { color: #003f7a !important; }
+.bg-colegio-blue-light { background-color: rgba(0, 63, 122, 0.08); }
+
+.form-card {
+  border-top: 5px solid #003f7a !important;
+}
+
+.icon-box {
+  width: 58px;
+  height: 58px;
+  min-width: 58px;
+  font-size: 1.7rem;
+}
+
+.form-control:focus {
+  border-color: #003f7a;
+  box-shadow: 0 0 0 0.25rem rgba(0, 63, 122, 0.15);
+  background-color: #ffffff !important;
+}
+
+.btn-colegio-blue {
+  background-color: #003f7a;
+  color: #ffffff;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-colegio-blue:hover {
+  background-color: #00254a;
+  color: #ffca28;
+  transform: translateY(-2px);
+}
