@@ -10,6 +10,10 @@ import { Router } from '@angular/router';
 export class InicioComponent {
   constructor(private router: Router) {}
 
+  irAlumnos() {
+    this.router.navigate(['/alumnos']);
+  }
+  
   salir() {
     this.router.navigate(['/']); 
   }

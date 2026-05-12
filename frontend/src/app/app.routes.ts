@@ -7,5 +7,10 @@ export const routes: Routes = [
   { path: '', component: HomeComponent }, 
   { path: 'login', component: UsuarioFormComponent },
   { path: 'inicio', component: InicioComponent },
+  {
+    path: 'alumnos',
+    loadChildren: () =>
+      import('./features/usuarios/alumno.routes').then(m => m.ALUMNO_ROUTES)
+  },
   { path: '**', redirectTo: '' }
 ];
