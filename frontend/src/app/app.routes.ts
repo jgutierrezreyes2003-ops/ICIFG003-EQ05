@@ -9,5 +9,10 @@ export const routes: Routes = [
   { path: 'login', component: UsuarioFormComponent },
   { path: 'inicio', component: InicioComponent },
   { path: 'causas', component: CausaListComponent },
+  {
+    path: 'alumnos',
+    loadChildren: () =>
+      import('./features/usuarios/alumno.routes').then(m => m.ALUMNO_ROUTES)
+  },
   { path: '**', redirectTo: '' }
 ];

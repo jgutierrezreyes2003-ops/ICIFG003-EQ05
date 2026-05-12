@@ -1,0 +1,61 @@
+<div class="card border-0 shadow-sm rounded-4 table-card">
+  <div class="card-body p-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-2">
+      <div>
+        <h4 class="fw-bold text-dark mb-1">Listado de alumnos</h4>
+        <p class="text-secondary mb-0">Administra el registro completo de estudiantes.</p>
+      </div>
+
+      <span class="badge bg-colegio-yellow text-dark px-3 py-2 rounded-pill">
+        {{ store.alumnos().length }} registrados
+      </span>
+    </div>
+
+    <div *ngIf="store.error()" class="alert alert-danger rounded-3">
+      {{ store.error() }}
+    </div>
+
+    <div *ngIf="store.loading()" class="alert alert-info rounded-3">
+      Cargando información...
+    </div>
+
+    <div class="table-responsive">
+      <table class="table align-middle table-hover mb-0">
+        <thead>
+          <tr>
+            <th class="text-secondary small">ID</th>
+            <th class="text-secondary small">Nombre</th>
+            <th class="text-secondary small">Curso</th>
+            <th class="text-secondary small text-end">Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let alumno of store.alumnos()">
+            <td class="fw-semibold text-colegio-blue">{{ alumno.id }}</td>
+            <td>{{ alumno.nombre }}</td>
+            <td>
+              <span class="badge bg-colegio-blue-light text-colegio-blue px-3 py-2 rounded-pill">
+                {{ alumno.curso }}
+              </span>
+            </td>
+            <td class="text-end">
+              <button class="btn btn-sm btn-outline-primary rounded-pill px-3 me-2" (click)="editar(alumno)">
+                Editar
+              </button>
+              <button class="btn btn-sm btn-outline-danger rounded-pill px-3" (click)="eliminar(alumno.id)">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+
+          <tr *ngIf="!store.loading() && store.alumnos().length === 0">
+            <td colspan="4" class="text-center text-secondary py-4">
+              No hay alumnos registrados.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
