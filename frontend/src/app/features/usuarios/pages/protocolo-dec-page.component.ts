@@ -39,14 +39,14 @@ import { ProtocoloDECStore } from '../services/protocolo-dec.store';
 
         <app-protocolo-dec-form
           [protocoloSeleccionado]="protocoloSeleccionado"
-          [alumnos]="store.alumnos$ | async"
-          [causas]="store.causas$ | async"
+          [alumnos]="(store.alumnos$ | async) || []"
+          [causas]="(store.causas$ | async) || []"
           (guardar)="guardar($event)"
           (cancelar)="protocoloSeleccionado = null">
         </app-protocolo-dec-form>
 
         <app-protocolo-dec-list
-          [protocolos]="store.protocolos$ | async"
+          [protocolos]="(store.protocolos$ | async) || []"
           (editar)="editar($event)"
           (eliminar)="eliminar($event)">
         </app-protocolo-dec-list>
