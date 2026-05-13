@@ -1,6 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AlumnoStore } from '../../services/alumno.store';
 import { Alumno } from '../../models/alumno.models';
 
 @Component({
@@ -11,21 +10,31 @@ import { Alumno } from '../../models/alumno.models';
   styleUrl: './alumno-list.component.css'
 })
 export class AlumnoListComponent {
-  store = inject(AlumnoStore);
 
-  ngOnInit() {
-    this.store.load();
+  @Input() alumnos: Alumno[] = [];
+  @Input() loading = false;
+
+  @Output() editar = new EventEmitter<Alumno>();
+  @Output() eliminar = new EventEmitter<number>();
+
+  alumnoPendienteEliminar: Alumno | null = null;
+
+  editarAlumno(alumno: Alumno) {
+    this.editar.emit(alumno);
   }
 
-  editar(alumno: Alumno) {
-    this.store.select(alumno);
+  solicitarEliminacion(alumno: Alumno) {
+    this.alumnoPendienteEliminar = alumno;
   }
 
-  eliminar(id?: number) {
-    if (!id) return;
+  cancelarEliminacion() {
+    this.alumnoPendienteEliminar = null;
+  }
 
-    if (confirm('¿Eliminar alumno?')) {
-      this.store.delete(id);
+  confirmarEliminacion() {
+    if (this.alumnoPendienteEliminar?.id) {
+      this.eliminar.emit(this.alumnoPendienteEliminar.id);
+      this.alumnoPendienteEliminar = null;
     }
   }
 }

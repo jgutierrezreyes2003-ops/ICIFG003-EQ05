@@ -1,21 +1,37 @@
-import { Injectable, signal, inject } from '@angular/core';
-import { AlumnoService } from './alumno.service';
+import { Injectable, signal } from '@angular/core';
 import { Alumno } from '../models/alumno.models';
+import { AlumnoService } from './alumno.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AlumnoStore {
-  private service = inject(AlumnoService);
 
   alumnos = signal<Alumno[]>([]);
-  selected = signal<Alumno | null>(null);
-  loading = signal(false);
+  loading = signal<boolean>(false);
   error = signal<string | null>(null);
+  success = signal<string | null>(null);
+  selected = signal<Alumno | null>(null);
+
+  private successTimer: any;
+  private errorTimer: any;
+
+  constructor(private service: AlumnoService) {
+    this.load();
+  }
+
+  private mostrarSuccess(mensaje: string) {
+    this.success.set(mensaje);
+    clearTimeout(this.successTimer);
+    this.successTimer = setTimeout(() => this.success.set(null), 3000);
+  }
+
+  private mostrarError(mensaje: string) {
+    this.error.set(mensaje);
+    clearTimeout(this.errorTimer);
+    this.errorTimer = setTimeout(() => this.error.set(null), 3000);
+  }
 
   load() {
     this.loading.set(true);
-    this.error.set(null);
 
     this.service.getAll().subscribe({
       next: data => {
@@ -23,68 +39,60 @@ export class AlumnoStore {
         this.loading.set(false);
       },
       error: () => {
-        this.error.set('Error al cargar alumnos');
+        this.mostrarError('Error cargando alumnos');
         this.loading.set(false);
       }
     });
   }
 
-  select(alumno: Alumno) {
-    this.selected.set({ ...alumno });
-  }
-
-  clearSelection() {
-    this.selected.set(null);
-  }
-
   add(alumno: Alumno) {
-    this.loading.set(true);
-    this.error.set(null);
-
     this.service.create(alumno).subscribe({
-      next: nuevo => {
-        this.alumnos.update(list => [...list, nuevo]);
-        this.loading.set(false);
+      next: nuevoAlumno => {
+        this.alumnos.update(list => [...list, nuevoAlumno]);
+        this.mostrarSuccess('Alumno guardado correctamente');
       },
       error: () => {
-        this.error.set('Error al crear alumno');
-        this.loading.set(false);
+        this.mostrarError('Error guardando alumno');
       }
     });
   }
 
   update(alumno: Alumno) {
-    this.loading.set(true);
-    this.error.set(null);
-
     this.service.update(alumno).subscribe({
-      next: actualizado => {
+      next: alumnoActualizado => {
         this.alumnos.update(list =>
-          list.map(a => a.id === actualizado.id ? actualizado : a)
+          list.map(a => a.id === alumnoActualizado.id ? alumnoActualizado : a)
         );
+
         this.clearSelection();
-        this.loading.set(false);
+        this.mostrarSuccess('Alumno actualizado correctamente');
       },
       error: () => {
-        this.error.set('Error al actualizar alumno');
-        this.loading.set(false);
+        this.mostrarError('Error actualizando alumno');
       }
     });
   }
 
   delete(id: number) {
-    this.loading.set(true);
-    this.error.set(null);
-
     this.service.delete(id).subscribe({
       next: () => {
-        this.alumnos.update(list => list.filter(a => a.id !== id));
-        this.loading.set(false);
+        this.alumnos.update(list =>
+          list.filter(a => a.id !== id)
+        );
+
+        this.mostrarSuccess('Alumno eliminado correctamente');
       },
       error: () => {
-        this.error.set('Error al eliminar alumno');
-        this.loading.set(false);
+        this.mostrarError('Error eliminando alumno');
       }
     });
+  }
+
+  select(alumno: Alumno) {
+    this.selected.set(alumno);
+  }
+
+  clearSelection() {
+    this.selected.set(null);
   }
 }

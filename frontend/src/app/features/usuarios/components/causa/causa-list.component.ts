@@ -1,6 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CausaStore } from '../../services/causa.store';
 import { Causa } from '../../models/causa.models';
 
 @Component({
@@ -8,24 +7,34 @@ import { Causa } from '../../models/causa.models';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './causa-list.component.html',
-  styleUrls: ['./causa-list.component.css']
+  styleUrl: './causa-list.component.css'
 })
 export class CausaListComponent {
-  store = inject(CausaStore);
 
-  ngOnInit() {
-    this.store.load();
+  @Input() causas: Causa[] = [];
+  @Input() loading = false;
+
+  @Output() editar = new EventEmitter<Causa>();
+  @Output() eliminar = new EventEmitter<number>();
+
+  causaPendienteEliminar: Causa | null = null;
+
+  editarCausa(causa: Causa) {
+    this.editar.emit(causa);
   }
 
-  editar(causa: Causa) {
-    this.store.select(causa);
+  solicitarEliminacion(causa: Causa) {
+    this.causaPendienteEliminar = causa;
   }
 
-  eliminar(id?: number) {
-    if (!id) return;
+  cancelarEliminacion() {
+    this.causaPendienteEliminar = null;
+  }
 
-    if (confirm('¿Eliminar causa?')) {
-      this.store.delete(id);
+  confirmarEliminacion() {
+    if (this.causaPendienteEliminar?.id) {
+      this.eliminar.emit(this.causaPendienteEliminar.id);
+      this.causaPendienteEliminar = null;
     }
   }
 }

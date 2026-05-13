@@ -1,1 +1,48 @@
-/* You can add global styles to this file, and also import other style files */
+.bg-colegio-blue {
+  background-color: #00457c !important;
+}
+
+.text-colegio-blue {
+  color: #00457c !important;
+}
+
+.bg-colegio-blue-light {
+  background-color: #e9f1f8 !important;
+}
+
+.btn-colegio-blue {
+  background-color: #00457c !important;
+  border-color: #00457c !important;
+  color: #ffffff !important;
+}
+
+.btn-colegio-blue:hover {
+  background-color: #003763 !important;
+  border-color: #003763 !important;
+  color: #ffffff !important;
+}
+
+.btn-colegio-yellow {
+  background-color: #ffcc29 !important;
+  border-color: #ffcc29 !important;
+}
+
+.btn-colegio-yellow:hover {
+  background-color: #f0bd18 !important;
+  border-color: #f0bd18 !important;
+}
+
+.module-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.module-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.12) !important;
+}
+
+.icon-dashboard {
+  width: 58px;
+  height: 58px;
+  font-size: 1.4rem;
+}

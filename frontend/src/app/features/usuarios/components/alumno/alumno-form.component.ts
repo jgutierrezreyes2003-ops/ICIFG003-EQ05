@@ -1,59 +1,57 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AlumnoStore } from '../../services/alumno.store';
 import { Alumno } from '../../models/alumno.models';
 
 @Component({
   selector: 'app-alumno-form',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule
+  ],
   templateUrl: './alumno-form.component.html',
   styleUrl: './alumno-form.component.css'
 })
-export class AlumnoFormComponent {
-  store = inject(AlumnoStore);
+export class AlumnoFormComponent implements OnChanges {
+
+  @Input() alumnoEditar: Alumno | null = null;
+
+  @Output() guardar = new EventEmitter<Alumno>();
+  @Output() cancelar = new EventEmitter<void>();
 
   alumno: Alumno = {
     nombre: '',
     curso: ''
   };
 
-  editando = false;
-
-  constructor() {
-    effect(() => {
-      const seleccionado = this.store.selected();
-      if (seleccionado) {
-        this.alumno = { ...seleccionado };
-        this.editando = true;
-      }
-    });
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['alumnoEditar'] && this.alumnoEditar) {
+      this.alumno = { ...this.alumnoEditar };
+    }
   }
 
-  guardar() {
-    if (!this.alumno.nombre.trim() || !this.alumno.curso.trim()) {
+  guardarAlumno() {
+    if (!this.alumno.nombre || !this.alumno.curso) {
       return;
     }
 
-    if (this.editando && this.alumno.id) {
-      this.store.update(this.alumno);
-    } else {
-      this.store.add({
-        nombre: this.alumno.nombre,
-        curso: this.alumno.curso
-      });
-    }
-
-    this.limpiar();
+    this.guardar.emit(this.alumno);
+    this.limpiarFormulario(false);
   }
 
-  limpiar() {
+  limpiarFormulario(emitirCancelar: boolean = true) {
     this.alumno = {
       nombre: '',
       curso: ''
     };
-    this.editando = false;
-    this.store.clearSelection();
+
+    if (emitirCancelar) {
+      this.cancelar.emit();
+    }
+  }
+
+  cancelarEdicion() {
+    this.limpiarFormulario();
   }
 }

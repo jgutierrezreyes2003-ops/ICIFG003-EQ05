@@ -1,96 +1,104 @@
-import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Alumno, Causa, ProtocoloDEC } from '../../models/protocolo-dec.models';
+import { ProtocoloDEC } from '../../models/protocolo-dec.models';
+import { Alumno } from '../../models/alumno.models';
+import { Causa } from '../../models/causa.models';
 
 @Component({
   selector: 'app-protocolo-dec-form',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule
+  ],
   templateUrl: './protocolo-dec-form.component.html',
   styleUrl: './protocolo-dec-form.component.css'
 })
-export class ProtocoloDECFormComponent implements OnChanges {
-  @Input() protocoloSeleccionado: ProtocoloDEC | null = null;
+export class ProtocoloDecFormComponent implements OnChanges {
+
+  @Input() protocoloEditar: ProtocoloDEC | null = null;
   @Input() alumnos: Alumno[] = [];
   @Input() causas: Causa[] = [];
+
   @Output() guardar = new EventEmitter<ProtocoloDEC>();
   @Output() cancelar = new EventEmitter<void>();
 
-  id?: number;
   fecha = '';
   descripcion = '';
   causaId: number | null = null;
-  alumnoIds: number[] = [];
+  alumnosSeleccionados: number[] = [];
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['protocoloSeleccionado']) {
-      this.cargarFormulario();
+    if (changes['protocoloEditar'] && this.protocoloEditar) {
+      this.fecha = this.protocoloEditar.fecha;
+      this.descripcion = this.protocoloEditar.descripcion;
+      this.causaId = this.protocoloEditar.causa?.id ?? null;
+      this.alumnosSeleccionados = this.protocoloEditar.alumnos?.map(a => a.id!) ?? [];
     }
   }
 
-  cargarFormulario(): void {
-    if (!this.protocoloSeleccionado) {
-      this.limpiar();
-      return;
+  alumnoMarcado(id: number | undefined): boolean {
+    if (!id) {
+      return false;
     }
 
-    this.id = this.protocoloSeleccionado.id;
-    this.fecha = this.protocoloSeleccionado.fecha;
-    this.descripcion = this.protocoloSeleccionado.descripcion;
-    this.causaId = this.protocoloSeleccionado.causa?.id ?? null;
-    this.alumnoIds = this.protocoloSeleccionado.alumnos?.map(a => a.id) ?? [];
+    return this.alumnosSeleccionados.includes(id);
   }
 
-  cambiarAlumno(alumnoId: number, event: Event): void {
+  cambiarAlumno(alumno: Alumno, event: Event) {
     const checked = (event.target as HTMLInputElement).checked;
 
+    if (!alumno.id) {
+      return;
+    }
+
     if (checked) {
-      this.alumnoIds = [...this.alumnoIds, alumnoId];
+      this.alumnosSeleccionados.push(alumno.id);
     } else {
-      this.alumnoIds = this.alumnoIds.filter(id => id !== alumnoId);
+      this.alumnosSeleccionados = this.alumnosSeleccionados.filter(id => id !== alumno.id);
     }
   }
 
-  estaSeleccionado(alumnoId: number): boolean {
-    return this.alumnoIds.includes(alumnoId);
-  }
-
-  enviarFormulario(): void {
-    if (!this.fecha || !this.descripcion.trim() || !this.causaId || this.alumnoIds.length === 0) {
-      alert('Completa fecha, descripción, causa y al menos un alumno.');
+  guardarProtocolo() {
+    if (!this.fecha || !this.descripcion || !this.causaId || this.alumnosSeleccionados.length === 0) {
       return;
     }
 
-    const causa = this.causas.find(c => c.id === Number(this.causaId));
-    const alumnosSeleccionados = this.alumnos.filter(a => this.alumnoIds.includes(a.id));
+    const causaSeleccionada = this.causas.find(c => c.id === Number(this.causaId));
 
-    if (!causa) {
-      alert('Selecciona una causa válida.');
+    const alumnosElegidos = this.alumnos.filter(a =>
+      a.id && this.alumnosSeleccionados.includes(a.id)
+    );
+
+    if (!causaSeleccionada) {
       return;
     }
 
-    this.guardar.emit({
-      id: this.id,
+    const protocolo: ProtocoloDEC = {
+      id: this.protocoloEditar?.id,
       fecha: this.fecha,
-      descripcion: this.descripcion.trim(),
-      causa,
-      alumnos: alumnosSeleccionados
-    });
+      descripcion: this.descripcion,
+      causa: causaSeleccionada,
+      alumnos: alumnosElegidos
+    };
 
-    this.limpiar();
+    this.guardar.emit(protocolo);
+    this.limpiarFormulario(false);
   }
 
-  limpiar(): void {
-    this.id = undefined;
+  limpiarFormulario(emitirCancelar: boolean = true) {
     this.fecha = '';
     this.descripcion = '';
     this.causaId = null;
-    this.alumnoIds = [];
+    this.alumnosSeleccionados = [];
+
+    if (emitirCancelar) {
+      this.cancelar.emit();
+    }
   }
 
-  cancelarEdicion(): void {
-    this.limpiar();
-    this.cancelar.emit();
+  cancelarEdicion() {
+    this.limpiarFormulario();
   }
 }

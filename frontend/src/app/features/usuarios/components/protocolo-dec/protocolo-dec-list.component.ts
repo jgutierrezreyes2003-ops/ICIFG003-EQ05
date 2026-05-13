@@ -1,24 +1,31 @@
-import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProtocoloDEC } from '../../models/protocolo-dec.models';
 
 @Component({
   selector: 'app-protocolo-dec-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule
+  ],
   templateUrl: './protocolo-dec-list.component.html',
   styleUrl: './protocolo-dec-list.component.css'
 })
-export class ProtocoloDECListComponent {
+export class ProtocoloDecListComponent {
+
   @Input() protocolos: ProtocoloDEC[] = [];
+  @Input() loading = false;
+
   @Output() editar = new EventEmitter<ProtocoloDEC>();
   @Output() eliminar = new EventEmitter<number>();
 
-  busquedaAlumno = '';
+  busqueda = '';
+  protocoloPendienteEliminar: ProtocoloDEC | null = null;
 
   get protocolosFiltrados(): ProtocoloDEC[] {
-    const texto = this.busquedaAlumno.trim().toLowerCase();
+    const texto = this.busqueda.trim().toLowerCase();
 
     if (!texto) {
       return this.protocolos;
@@ -32,16 +39,26 @@ export class ProtocoloDECListComponent {
     );
   }
 
-  confirmarEliminar(id?: number): void {
-    if (!id) return;
+  editarProtocolo(protocolo: ProtocoloDEC) {
+    this.editar.emit(protocolo);
+  }
 
-    const confirmar = confirm('¿Seguro que deseas eliminar este protocolo DEC?');
-    if (confirmar) {
-      this.eliminar.emit(id);
+  solicitarEliminacion(protocolo: ProtocoloDEC) {
+    this.protocoloPendienteEliminar = protocolo;
+  }
+
+  cancelarEliminacion() {
+    this.protocoloPendienteEliminar = null;
+  }
+
+  confirmarEliminacion() {
+    if (this.protocoloPendienteEliminar?.id) {
+      this.eliminar.emit(this.protocoloPendienteEliminar.id);
+      this.protocoloPendienteEliminar = null;
     }
   }
 
   nombresAlumnos(protocolo: ProtocoloDEC): string {
-    return protocolo.alumnos?.map(a => `${a.nombre} (${a.curso})`).join(', ') || 'Sin alumnos';
+    return protocolo.alumnos?.map(a => a.nombre).join(', ') || 'Sin alumnos';
   }
 }

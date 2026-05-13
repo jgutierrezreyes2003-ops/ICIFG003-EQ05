@@ -1,13 +1,5 @@
-export interface Alumno {
-  id: number;
-  nombre: string;
-  curso: string;
-}
-
-export interface Causa {
-  id: number;
-  nombreCausa: string;
-}
+import { Alumno } from './alumno.models';
+import { Causa } from './causa.models';
 
 export interface ProtocoloDEC {
   id?: number;

@@ -1,56 +1,55 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CausaStore } from '../../services/causa.store'; 
 import { Causa } from '../../models/causa.models';
 
 @Component({
   selector: 'app-causa-form',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule
+  ],
   templateUrl: './causa-form.component.html',
   styleUrl: './causa-form.component.css'
 })
-export class CausaFormComponent {
-  store = inject(CausaStore);
+export class CausaFormComponent implements OnChanges {
+
+  @Input() causaEditar: Causa | null = null;
+
+  @Output() guardar = new EventEmitter<Causa>();
+  @Output() cancelar = new EventEmitter<void>();
 
   causa: Causa = {
     nombreCausa: ''
   };
 
-  editando = false;
-
-  constructor() {
-    effect(() => {
-      const seleccionado = this.store.selected();
-      if (seleccionado) {
-        this.causa = { ...seleccionado };
-        this.editando = true;
-      }
-    });
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['causaEditar'] && this.causaEditar) {
+      this.causa = { ...this.causaEditar };
+    }
   }
 
-  guardar() {
-    if (!this.causa.nombreCausa.trim()) {
+  guardarCausa() {
+    if (!this.causa.nombreCausa) {
       return;
     }
 
-    if (this.editando && this.causa.id) {
-      this.store.update(this.causa);
-    } else {
-      this.store.add({
-        nombreCausa: this.causa.nombreCausa
-      });
-    }
-
-    this.limpiar();
+    this.guardar.emit(this.causa);
+    this.limpiarFormulario(false);
   }
 
-  limpiar() {
+  limpiarFormulario(emitirCancelar: boolean = true) {
     this.causa = {
       nombreCausa: ''
     };
-    this.editando = false;
-    this.store.clearSelection();
+
+    if (emitirCancelar) {
+      this.cancelar.emit();
+    }
+  }
+
+  cancelarEdicion() {
+    this.limpiarFormulario();
   }
 }
